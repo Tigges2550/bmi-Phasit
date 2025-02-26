@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>คำนวณ BMI</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 50px;
+        }
+        .container {
+            max-width: 400px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            background-color: #f9f9f9;
+        }
+        input {
+            margin: 10px 0;
+            padding: 10px;
+            width: 100%;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        button {
+            padding: 10px 20px;
+            border-radius: 5px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .result {
+            margin-top: 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .footer {
+            margin-top: 30px;
+            font-size: 14px;
+            color: #555;
+        }
+        .footer p {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>คำนวณ BMI</h2>
+        <label for="name">ชื่อของคุณ:</label>
+        <input type="text" id="name" placeholder="กรุณากรอกชื่อ">
+
+        <label for="weight">น้ำหนัก (กก.):</label>
+        <input type="number" id="weight" placeholder="น้ำหนักของคุณ" required>
+
+        <label for="height">ส่วนสูง (ซม.):</label>
+        <input type="number" id="height" placeholder="ส่วนสูงของคุณ" required>
+
+        <button onclick="calculateBMI()">คำนวณ BMI</button>
+
+        <div class="result" id="result"></div>
+
+        <div class="footer">
+            <h3>ผู้จัดทำ:</h3>
+            <p>นายปภังกร กุลชโร เลขที่ 1 ม.5/2</p>
+            <p>นายจักรภพ จันทฤทธิ์ เลขที่ 3 ม.5/2</p>
+            <p>นายธนกร เหล่าโพธิ์ เลขที่ 4 ม.5/2</p>
+            <p>นายสิงขร อินตะวิชัย เลขที่ 9 ม.5/2</p>
+            <p>นายพสิษฐ์ ปากเมย เลขที่ 12 ม.5/2</p>
+
+            <h3>วิธีการใช้งาน:</h3>
+            <p>1. กรอกชื่อ น้ำหนัก และส่วนสูงของคุณลงในฟอร์มที่ระบุไว้</p>
+            <p>2. คลิกที่ปุ่ม "คำนวณ BMI" เพื่อดูผลค่า BMI ของคุณ</p>
+            <p>3. คำแนะนำเกี่ยวกับการดูแลสุขภาพจะปรากฏตามผลการคำนวณ</p>
+        </div>
+    </div>
+
+    <script>
+        function calculateBMI() {
+            var name = document.getElementById('name').value;
+            var weight = parseFloat(document.getElementById('weight').value);
+            var height = parseFloat(document.getElementById('height').value);
+
+            if (isNaN(weight) || isNaN(height) || weight <= 0 || height <= 0) {
+                document.getElementById('result').innerText = "กรุณากรอกข้อมูลให้ถูกต้อง";
+                return;
+            }
+
+            height = height / 100; // เปลี่ยนส่วนสูงจาก ซม. เป็น เมตร
+            var bmi = weight / (height * height);
+
+            var bmiCategory = '';
+            var advice = '';
+            if (bmi < 18.5) {
+                bmiCategory = 'น้ำหนักน้อย';
+                advice = 'กินข้าวให้เยอะๆหน่อยน้าาา';
+            } else if (bmi >= 18.5 && bmi < 24.9) {
+                bmiCategory = 'น้ำหนักปกติ';
+                advice = 'ทำดีแล้ว! ออกกำลังกายและกินอาหารที่มีประโยชน์สุขภาพจะได้ดียิ่งๆขึ้นไป';
+            } else if (bmi >= 25 && bmi < 29.9) {
+                bmiCategory = 'น้ำหนักเกิน';
+                advice = 'ออกกำลังกายเยอะๆนะ สุขภาพจะได้ดี';
+            } else {
+                bmiCategory = 'อ้วน';
+                advice = 'ออกกำลังกายเยอะๆนะ สุขภาพจะได้ดี';
+            }
+
+            document.getElementById('result').innerText = name + ' BMI ของคุณคือ ' + bmi.toFixed(2) + ' (' + bmiCategory + ')';
+            document.getElementById('result').innerText += '\nคำแนะนำ: ' + advice;
+        }
+    </script>
+
+</body>
+</html>
